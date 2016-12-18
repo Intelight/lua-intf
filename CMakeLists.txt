@@ -5,6 +5,9 @@ project(lua-intf)
 add_library (lua-intf INTERFACE)
 file(GLOB LUAINTF_PUBLIC_HEADERS LuaIntf/*.h)
 
+install(DIRECTORY LuaIntf
+	DESTINATION include)
+
 install(TARGETS lua-intf
 	EXPORT lua-intf-config
 	INCLUDES DESTINATION include/LuaIntf)
