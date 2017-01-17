@@ -9,11 +9,13 @@ dependencies:
   override:
     - docker info
     - pwd
+    - ls -l ~/docker
     - if [ -e "~/docker/ubuntu-dev.tar" ]; then docker load -i ~/docker/ubuntu-dev.tar; fi
     - docker pull intelight/ubuntu-dev:16.04-0
     - mkdir -p ~/docker; docker save intelight/ubuntu-dev:16.04-0 > ~/docker/ubuntu-dev.tar
-    - docker run -t -v $(pwd):/maxsuite "intelight/ubuntu-dev:16.04-0" -c "mkdir ~/bin && touch ~/bin/dee"
+    - docker run -t -v $(pwd):/maxsuite "intelight/ubuntu-dev:16.04-0" -c "mkdir -p /maxsuite/bin && touch /maxsuite/bin/dee"
     - ls -la bin
+    - ls -la ~/docker
 
 compile:
   pre:
@@ -21,7 +23,7 @@ compile:
     - ls -la
     - cat /etc/os-release
   override:
-    - docker run -t -v $(pwd):/maxsuite "intelight/ubuntu-dev:16.04-0" -c "cd /maxsuite && ls -l && whoami && touch dum"
+    - docker run -t -v $(pwd):/maxsuite "intelight/ubuntu-dev:16.04-0" -c "cd /maxsuite && ls -l && whoami"
     - ls -la && whoami
 
 test:
