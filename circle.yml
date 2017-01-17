@@ -19,9 +19,7 @@ dependencies:
         docker pull intelight/maxbuilder-alpine:3.4-2
       fi
     - docker images
-    - >-
-      docker run -t -v $(pwd):/maxsuite "intelight/maxbuilder-alpine:3.4-2" -c \
-      "cd /maxsuite/intelight/build/alpine/build && mkdir -p bin && touch bin/dee"
+    - docker run -t -v $(pwd):/maxsuite intelight/maxbuilder-alpine:3.4-2 -c "mkdir -p bin && touch bin/dee"
     - docker build -t stuff .
     - docker images
     - mkdir -p ~/docker; docker save -o ~/docker/images.tar alpine:3.4 intelight/maxbuilder-alpine:3.4-2 stuff
