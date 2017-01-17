@@ -12,7 +12,7 @@ dependencies:
     - pwd
     - ls -l ~/docker
     - ls -l ~/lua-intf/bin
-    - [ -f ~/docker/ubuntu-dev.tar ] && docker load -i ~/docker/ubuntu-dev.tar
+    - if [ -f ~/docker/ubuntu-dev.tar ]; then docker load -i ~/docker/ubuntu-dev.tar; fi
     - docker images
     - docker load -i ~/docker/ubuntu-dev.tar
     - docker images
