@@ -5,7 +5,7 @@ machine:
 dependencies:
   override:
     - docker info
-    - docker pull "intelight/ubuntu-dev:16.04-0"
+    - docker pull intelight/ubuntu-dev:16.04-0
 
 compile:
   pre:
@@ -19,4 +19,4 @@ compile:
 
 test:
   override:
-    - true
+    - ls -la
