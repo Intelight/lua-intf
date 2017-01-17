@@ -5,11 +5,15 @@ machine:
 dependencies:
   cache_directories:
     - "~/docker"
+    - "~/lua-intf/bin"
   override:
     - docker info
+    - pwd
     - if [ -e "~/docker/ubuntu-dev.tar" ]; then docker load -i ~/docker/ubuntu-dev.tar; fi
     - docker pull intelight/ubuntu-dev:16.04-0
     - mkdir -p ~/docker; docker save intelight/ubuntu-dev:16.04-0 > ~/docker/ubuntu-dev.tar
+    - docker run -t -v $(pwd):/maxsuite "intelight/ubuntu-dev:16.04-0" -c "mkdir ~/bin && touch ~/bin/dee"
+    - ls -la bin
 
 compile:
   pre:
