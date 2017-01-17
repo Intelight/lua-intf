@@ -26,14 +26,6 @@ dependencies:
     - docker images
     - mkdir -p ~/docker; docker save -o ~/docker/ubuntu-dev.tar intelight/ubuntu-dev:16.04-0 alpine:3.4 stuff
 
-compile:
-  pre:
-    - whoami
-    - ls -la
-    - cat /etc/os-release
-  override:
-    - ls -la && whoami
-
 test:
   override:
-    - ls -la
+    - echo "no test"
