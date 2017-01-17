@@ -7,42 +7,24 @@ dependencies:
   cache_directories:
     - "~/docker"
     - "~/lua-intf/bin"
-  override:
+   override:
     - docker info
-    - pwd
-    - ls -l ~/docker
-    - ls -l ~/lua-intf/bin
     - >-
-      if [[ -e ~/docker/ubuntu-dev.tar ]]; then
-        echo "Loading ubuntu-dev image from cache"
-        docker load -i ~/docker/ubuntu-dev.tar
+      if [[ -e ~/docker/images.tar ]]; then
+        echo "Loading docker images from cache"
+        docker load -i ~/docker/images.tar
       else
-        echo "Pulling ubuntu-dev image from Docker Hub"
-        docker pull intelight/ubuntu-dev:16.04-0
-        mkdir -p ~/docker; docker save -o ~/docker/ubuntu-dev.tar intelight/ubuntu-dev:16.04-0
+        echo "Pulling Docker images from Docker Hub"
+        docker pull alpine:3.4
+        docker pull intelight/maxbuilder-alpine:3.4-2
       fi
     - docker images
-    - docker run -t -v $(pwd):/maxsuite "intelight/ubuntu-dev:16.04-0" -c "mkdir -p /maxsuite/bin && touch /maxsuite/bin/dee"
     - >-
-      if [[ -e ~/docker/stuff.tar ]]; then
-        echo "Loading stuff image from cache"
-        docker load -i ~/docker/stuff.tar
-      fi
-    - docker images
+      docker run -t -v $(pwd):/maxsuite "intelight/maxbuilder-alpine:3.4-2" -c \
+      "cd /maxsuite/intelight/build/alpine/build && mkdir -p bin && touch bin/dee"
     - docker build -t stuff .
     - docker images
-    - mkdir -p ~/docker; docker save -o ~/docker/stuff.tar stuff:latest
-    - ls -la bin
-    - ls -la ~/docker
-
-compile:
-  pre:
-    - whoami
-    - ls -la
-    - cat /etc/os-release
-  override:
-    - docker run -t -v $(pwd):/maxsuite "intelight/ubuntu-dev:16.04-0" -c "cd /maxsuite && ls -l && whoami"
-    - ls -la && whoami
+    - mkdir -p ~/docker; docker save -o ~/docker/images.tar alpine:3.4 intelight/maxbuilder-alpine:3.4-2 stuff
 
 test:
   override:
