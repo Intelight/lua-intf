@@ -2,17 +2,18 @@ machine:
   services:
     - docker
 
-#dependencies:
-#  override:
-#    - sudo pip install --upgrade docker-compose
+dependencies:
+  override:
+    - docker info
+    - docker pull intelight/ubuntu:16.04-0
 
 compile:
   pre:
-    - docker --version
+    - id
+    - whoami
     - ls -la
-    - pwd
-    - cd LuaIntf && pwd
     - pwd
     - cat /etc/os-release
   override:
-    - docker-compose --version
+    - docker run -d v $(pwd):/maxsuite intelight/ubuntu:16.04-0 -c "pwd && ls -l && whoami && touch dum"
+    - ls -la && whoami
