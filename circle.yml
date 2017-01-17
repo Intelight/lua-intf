@@ -5,7 +5,7 @@ machine:
 dependencies:
   override:
     - docker info
-    - docker pull "intelight/ubuntu-dev:16.04-0"
+    - docker pull intelight/ubuntu-dev:16.04-0
 
 compile:
   pre:
@@ -14,5 +14,9 @@ compile:
     - pwd
     - cat /etc/os-release
   override:
-    - docker run --rm -t -v $(pwd):/maxsuite intelight/ubuntu-dev:16.04-0 -c "pwd && ls -l && whoami && touch dum"
+    - docker run --rm -t -v $(pwd):/maxsuite intelight/ubuntu-dev:16.04-0 -c "cd /maxsuite && ls -l && whoami && touch dum"
     - ls -la && whoami
+
+test:
+  override:
+    - true
