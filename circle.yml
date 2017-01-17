@@ -15,7 +15,6 @@ compile:
   pre:
     - whoami
     - ls -la
-    - pwd
     - cat /etc/os-release
   override:
     - docker run -t -v $(pwd):/maxsuite "intelight/ubuntu-dev:16.04-0" -c "cd /maxsuite && ls -l && whoami && touch dum"
