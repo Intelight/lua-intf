@@ -12,11 +12,15 @@ dependencies:
     - pwd
     - ls -l ~/docker
     - ls -l ~/lua-intf/bin
-    - if [ -f ~/docker/ubuntu-dev.tar ]; then docker load -i ~/docker/ubuntu-dev.tar; fi
-    - docker images
-    - docker load -i ~/docker/ubuntu-dev.tar
-    - docker images
-    - docker pull intelight/ubuntu-dev:16.04-0
+    - >-
+      if [[ -e ~/docker/ubuntu-dev.tar ]]; then
+        echo "Loading ubuntu-dev image from cache"
+        docker load -i ~/docker/ubuntu-dev.tar
+      else
+        echo "Pulling ubuntu-dev image from Docker Hub"
+        docker pull intelight/ubuntu-dev:16.04-0
+        mkdir -p ~/docker; docker save -o ~/docker//ubuntu-dev.tar intelight/ubuntu-dev:16.04-0
+      fi
     - docker images
     - mkdir -p ~/docker; docker save intelight/ubuntu-dev:16.04-0 > ~/docker/ubuntu-dev.tar
     - docker run -t -v $(pwd):/maxsuite "intelight/ubuntu-dev:16.04-0" -c "mkdir -p /maxsuite/bin && touch /maxsuite/bin/dee"
