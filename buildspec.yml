@@ -8,16 +8,14 @@ phases:
   install:
     commands:
       - pwd
-      - ls -la
-      - docker info
-      - docker images
+      - docker --version
+      - docker-compose --version
   pre_build:
     commands:
       - echo Nothing to do in the pre_build phase...
   build:
     commands:
       - echo Build started on `date`
-      - ls -la
   post_build:
     commands:
       - echo Build completed on `date`
