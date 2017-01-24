@@ -9,8 +9,8 @@ phases:
     commands:
       - pwd
       - ls -la
-	  - docker info
-	  - docker images
+      - docker info
+      - docker images
   pre_build:
     commands:
       - echo Nothing to do in the pre_build phase...
