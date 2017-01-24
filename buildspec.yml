@@ -21,3 +21,8 @@ phases:
   post_build:
     commands:
       - echo Build completed on `date`
+      
+artifacts:
+  files:
+    - LuaIntf/LuaIntf.h
+  discard-paths: yes
